@@ -1,14 +1,22 @@
-from flask import Flask, render_template
+from flask import Flask, flash, redirect, render_template, request, session, abort
+from bokeh.embed import server_document
 
 app = Flask(__name__)
 
-@app.route('/')
+"""@app.route('/')
 def home():
-    return render_template("home.html")
+    return render_template("home.html")"""
 
-@app.route('/about/')
+@app.route("/")
+def home():
+    script=server_document("home.html")
+    return render_template('home.html',bokS=script)
+
+
+@app.route("/about/")
 def about():
-    return render_template("about.html")
+    script=server_document("about.html")
+    return render_template('about.html',bokS=script)
 
 if __name__== "__main__":
     app.run()
